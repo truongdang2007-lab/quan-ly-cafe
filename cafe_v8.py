@@ -137,10 +137,16 @@ with tab_report:
         st.subheader(f"Lời: {s_total-e_total:,.0f}")
 
     st.divider()
-    if st.button("🗑 Reset toàn bộ dữ liệu (Cẩn thận!)"):
-        if st.checkbox("Xác nhận xoá"):
-            run_query("DELETE FROM sales"); run_query("DELETE FROM expenses")
-            st.rerun()
+    st.subheader("⚠️ Vùng nguy hiểm")
+    # Đưa ô xác nhận ra ngoài nút bấm
+    xac_nhan = st.checkbox("Tôi đồng ý xóa sạch toàn bộ lịch sử bán hàng và chi phí")
+    
+    # Nút bấm này chỉ bấm được khi mày đã tích vào ô ở trên
+    if st.button("🗑 XÓA SẠCH DỮ LIỆU", type="primary", disabled=not xac_nhan):
+        run_query("DELETE FROM sales")
+        run_query("DELETE FROM expenses")
+        st.success("Đã dọn dẹp sạch sẽ dữ liệu!")
+        st.rerun()
 
 # --- 3. CHI PHÍ ---
 with tab_expense:
@@ -173,4 +179,5 @@ with tab_menu:
             if st.button("Xóa món"):
                 run_query("DELETE FROM menu WHERE id = ?", (del_id,))
                 st.rerun()
+
 
