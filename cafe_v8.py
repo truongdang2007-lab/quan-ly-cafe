@@ -29,7 +29,7 @@ def run_query(query, params=(), fetch=False):
 
 # --- GIAO DIỆN ---
 st.set_page_config(page_title="Cafe v8 - Quản lý Đơn", layout="wide")
-st.markdown("<h1 style='text-align: center;'>☕ CAFE PRO v8: QUẢN LÝ ĐƠN HÀNG</h1>", unsafe_allow_width=True)
+st.markdown("<h1 style='text-align: center;'>☕ CAFE PRO v8: QUẢN LÝ ĐƠN HÀNG</h1>", unsafe_allow_html=True)
 
 tab_order, tab_report, tab_expense, tab_menu = st.tabs(["📝 GỌI MÓN/THANH TOÁN", "📈 BÁO CÁO", "💸 CHI PHÍ", "⚙️ CÀI ĐẶT MENU"])
 
@@ -139,3 +139,4 @@ with tab_menu:
         if st.button("Xóa món"):
             run_query("DELETE FROM menu WHERE id = ?", (del_id,))
             st.rerun()
+
